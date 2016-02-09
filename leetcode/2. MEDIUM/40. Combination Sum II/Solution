@@ -1,0 +1,28 @@
+public class Solution{
+	public List<List<Integer>> combinationSum2(int[] num, int target){
+		List<List<Integer>> combos = new LinkedList<>();
+		if(num == null || num.length == 0) return combos;
+		Arrays.sort(num);
+		combinationSum(num, target, new LinkedList<Integer>(), 0, combos);
+		return combos;
+	}
+
+	private void combinationSum(int[] num, int target, List<Integer> list, int start, List<List<Integer>> combos){
+		if(target == 0){
+			combos.add(list);
+		}else{
+			int prev = 0;
+			for(int i = start; i < num.length && target >= num[i]; i++){
+				if(num[i] == prev) continue;	
+				// 跳出循环，防止重复。例如[1, 1], target是1，
+				// 不加这句话结果会是[[1], [1]]， 但要求的是[[1]]
+				if(target >= 0){
+					List<Integer> copy = new LinkedList<>(list);
+					copy.add(num[i]);
+					combinationSum(num, target - num[i], copy, i + 1, combos);
+				}else break;
+				prev = num[i];
+			}
+		}
+	}
+}
