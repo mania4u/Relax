@@ -1,1 +1,0 @@
-# bittiger-scrapy-stackoverflow
